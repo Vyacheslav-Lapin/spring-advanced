@@ -1,4 +1,4 @@
-package ru.ibs.training.java.spring.springadvanced;
+package ru.ibs.training.java.spring.task01;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SpringAdvancedApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringAdvancedApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(SpringAdvancedApplication.class, args);
+  }
 
 }
