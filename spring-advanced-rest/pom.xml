@@ -8,7 +8,9 @@
     <version>${revision}</version>
   </parent>
 
+  <groupId>ru.ibs.training.java.spring</groupId>
   <artifactId>spring-advanced-rest</artifactId>
+  <version>${revision}</version>
 
   <packaging>pom</packaging>
   <modules>

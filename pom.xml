@@ -236,22 +236,22 @@
       </dependency>
 
 <!--      <dependency>-->
-<!--        <groupId>ru.ibs.trainings.spring</groupId>-->
+<!--        <groupId>ru.ibs.trainings.java.spring</groupId>-->
 <!--        <artifactId>spring-advanced-rest-impl</artifactId>-->
 <!--        <version>${revision}</version>-->
 <!--      </dependency>-->
 <!--      <dependency>-->
-<!--        <groupId>ru.ibs.trainings.spring</groupId>-->
+<!--        <groupId>ru.ibs.trainings.java.spring</groupId>-->
 <!--        <artifactId>spring-advanced-rest-api</artifactId>-->
 <!--        <version>${revision}</version>-->
 <!--      </dependency>-->
 <!--      <dependency>-->
-<!--        <groupId>ru.ibs.trainings.spring</groupId>-->
+<!--        <groupId>ru.ibs.trainings.java.spring</groupId>-->
 <!--        <artifactId>spring-advanced-rest-client</artifactId>-->
 <!--        <version>${revision}</version>-->
 <!--      </dependency>-->
 <!--      <dependency>-->
-<!--        <groupId>ru.ibs.trainings.spring</groupId>-->
+<!--        <groupId>ru.ibs.trainings.java.spring</groupId>-->
 <!--        <artifactId>spring-advanced-rest-stub</artifactId>-->
 <!--        <version>${revision}</version>-->
 <!--      </dependency>-->

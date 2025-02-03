@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0">
 
   <parent>
-    <groupId>ru.ibs.trainings.spring</groupId>
+    <groupId>ru.ibs.trainings.java.spring</groupId>
     <artifactId>spring-advanced-rest</artifactId>
     <version>${revision}</version>
   </parent>
@@ -15,7 +15,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>ru.ibs.trainings.spring</groupId>
+      <groupId>ru.ibs.trainings.java.spring</groupId>
       <artifactId>spring-advanced-rest-api</artifactId>
     </dependency>
   </dependencies>
