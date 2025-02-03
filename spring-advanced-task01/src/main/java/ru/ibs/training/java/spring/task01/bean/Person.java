@@ -2,129 +2,76 @@ package ru.ibs.training.java.spring.task01.bean;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.Contract;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
+import static jakarta.persistence.DiscriminatorType.*;
+import static jakarta.persistence.GenerationType.*;
+import static ru.ibs.training.java.spring.task01.utils.HibernateUtils.*;
+
+@Data
 @Entity
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="TYPE", discriminatorType=DiscriminatorType.INTEGER)
-public class Person implements Serializable {
+@DiscriminatorColumn(name = "TYPE", discriminatorType = INTEGER)
+@SuppressWarnings({"com.haulmont.ampjpb.LombokDataInspection",
+                   "com.intellij.jpb.LombokDataInspection"})
+public class Person {
 
-    private static final long serialVersionUID = -2175150694352541150L;
+  @Id
+  @GeneratedValue(strategy = IDENTITY)
+  Integer id;
 
-    private int id;
-    private String firstName;
-    private String lastName;
-    private Set<Address> addresses;
-    private Date created;
+  @NonNull String firstName;
+  @NonNull String lastName;
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    public Integer getId() {
-        return id;
-    }
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinColumn(name = "PERSON_ID", nullable = false)
+  @NonNull Set<Address> addresses;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  @NonNull Date created;
 
-    public String getFirstName() {
-        return firstName;
-    }
+  public Optional<Address> findAddressById(Integer id) {
+    return Optional.of(addresses)
+                   .stream()
+                   .flatMap(Set::stream)
+                   .filter(address -> Objects.equals(address.getId(), id))
+                   .findFirst();
+  }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+  @Override
+  @Contract(value = "null -> false", pure = true)
+  public boolean equals(Object o) {
+    return this == o || canEqual(o)
+                        && o instanceof Person person
+                        && effectiveClass(this) == effectiveClass(person)
+                        && getId() != null
+                        && Objects.equals(getId(), person.getId());
+  }
 
-    public String getLastName() {
-        return lastName;
-    }
+  protected boolean canEqual(Object other) {
+    return other instanceof Person;
+  }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinColumn(name="PERSON_ID", nullable=false)
-    public Set<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
-    }
-
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    public Address findAddressById(Integer id) {
-        Address result = null;
-
-        if (addresses != null) {
-            for (Address address : addresses) {
-                if (address.getId() == id) {
-                    result = address;
-
-                    break;
-                }
-            }
-        }
-
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(this.getClass().getName() + "-");
-        sb.append("  id=" + id);
-        sb.append("  firstName=" + firstName);
-        sb.append("  lastName=" + lastName);
-
-        sb.append("  addresses=[");
-
-        if (addresses != null) {
-            for (Address address : addresses) {
-                sb.append(address.toString());
-            }
-        }
-
-        sb.append("]");
-
-        sb.append("  created=" + created);
-
-        return sb.toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return id == person.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+  @Override
+  public int hashCode() {
+    return effectiveClass(this).hashCode();
+  }
 }
