@@ -14,6 +14,8 @@
   <modules>
     <module>spring-advanced-task01</module>
     <module>spring-advanced-web-mockito</module>
+<!--    <module>spring-advanced-rest</module>-->
+    <module>spring-advanced-webflux-testing</module>
   </modules>
 
   <properties>
@@ -33,9 +35,13 @@
     <assertj-vavr.version>0.4.3</assertj-vavr.version>
     <mapstruct.version>1.6.3</mapstruct.version>
 
+    <jaxb-api.version>2.3.0</jaxb-api.version>
+
     <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
     <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
     <yaml-properties-maven-plugin.version>1.1.3</yaml-properties-maven-plugin.version>
+    <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+    <javax.el-api.version>3.0.0</javax.el-api.version>
   </properties>
 
   <dependencies>
@@ -51,6 +57,25 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+
+    <!--region docker-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.boot</groupId>-->
+    <!--            <artifactId>spring-boot-docker-compose</artifactId>-->
+    <!--            <optional>true</optional>-->
+    <!--        </dependency>-->
+    <!--        <dependency>-->
+    <!--            <groupId>org.postgresql</groupId>-->
+    <!--            <artifactId>postgresql</artifactId>-->
+    <!--            <scope>runtime</scope>-->
+    <!--            <exclusions>-->
+    <!--                <exclusion>-->
+    <!--                    <groupId>org.checkerframework</groupId>-->
+    <!--                    <artifactId>checker-qual</artifactId>-->
+    <!--                </exclusion>-->
+    <!--            </exclusions>-->
+    <!--        </dependency>-->
+    <!--endregion-->
 
     <!--region Common Annotations (CheckerFramework, JetBrains, SpotBugs, ErrorProne) -->
     <dependency>
@@ -182,10 +207,58 @@
         <version>${mapstruct.version}</version>
       </dependency>
 
+      <dependency>
+        <groupId>javax.xml.bind</groupId>
+        <artifactId>jaxb-api</artifactId>
+        <version>${jaxb-api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>${javax.servlet-api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.el</groupId>
+        <artifactId>javax.el-api</artifactId>
+        <version>${javax.el-api.version}</version>
+      </dependency>
+
       <!--region Modules-->
       <dependency>
         <groupId>ru.ibs.training.java.spring</groupId>
         <artifactId>spring-advanced-task01</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>ru.ibs.training.java.spring</groupId>
+        <artifactId>spring-advanced-web-mockito</artifactId>
+        <version>${revision}</version>
+      </dependency>
+
+<!--      <dependency>-->
+<!--        <groupId>ru.ibs.trainings.spring</groupId>-->
+<!--        <artifactId>spring-advanced-rest-impl</artifactId>-->
+<!--        <version>${revision}</version>-->
+<!--      </dependency>-->
+<!--      <dependency>-->
+<!--        <groupId>ru.ibs.trainings.spring</groupId>-->
+<!--        <artifactId>spring-advanced-rest-api</artifactId>-->
+<!--        <version>${revision}</version>-->
+<!--      </dependency>-->
+<!--      <dependency>-->
+<!--        <groupId>ru.ibs.trainings.spring</groupId>-->
+<!--        <artifactId>spring-advanced-rest-client</artifactId>-->
+<!--        <version>${revision}</version>-->
+<!--      </dependency>-->
+<!--      <dependency>-->
+<!--        <groupId>ru.ibs.trainings.spring</groupId>-->
+<!--        <artifactId>spring-advanced-rest-stub</artifactId>-->
+<!--        <version>${revision}</version>-->
+<!--      </dependency>-->
+
+      <dependency>
+        <groupId>ru.ibs.training.java.spring</groupId>
+        <artifactId>spring-advanced-webflux-testing</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--endregion-->
