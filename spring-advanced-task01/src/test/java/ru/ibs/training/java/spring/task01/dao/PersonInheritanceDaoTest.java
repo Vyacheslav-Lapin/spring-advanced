@@ -42,7 +42,7 @@ class PersonInheritanceDaoTest {
   @Test
   @DirtiesContext // reset context so in memory DB re-inits
   void testQueryDatabase() {
-    assertNotNull(personDao, () -> "Person DAO is null.");
+    assertNotNull(personDao, "Person DAO is null.");
 
     val persons = personDao.findPersons();
 
