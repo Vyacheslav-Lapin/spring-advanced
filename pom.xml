@@ -15,7 +15,7 @@
   <modules>
     <module>spring-advanced-task01</module>
     <module>spring-advanced-web-mockito</module>
-    <!--<module>spring-advanced-rest</module>-->
+    <module>spring-advanced-rest</module>
     <module>spring-advanced-webflux-testing</module>
 
     <module>examples-data-rest</module>
@@ -238,26 +238,26 @@
         <version>${revision}</version>
       </dependency>
 
-      <!--      <dependency>-->
-      <!--        <groupId>ru.ibs.trainings.java.spring</groupId>-->
-      <!--        <artifactId>spring-advanced-rest-impl</artifactId>-->
-      <!--        <version>${revision}</version>-->
-      <!--      </dependency>-->
-      <!--      <dependency>-->
-      <!--        <groupId>ru.ibs.trainings.java.spring</groupId>-->
-      <!--        <artifactId>spring-advanced-rest-api</artifactId>-->
-      <!--        <version>${revision}</version>-->
-      <!--      </dependency>-->
-      <!--      <dependency>-->
-      <!--        <groupId>ru.ibs.trainings.java.spring</groupId>-->
-      <!--        <artifactId>spring-advanced-rest-client</artifactId>-->
-      <!--        <version>${revision}</version>-->
-      <!--      </dependency>-->
-      <!--      <dependency>-->
-      <!--        <groupId>ru.ibs.trainings.java.spring</groupId>-->
-      <!--        <artifactId>spring-advanced-rest-stub</artifactId>-->
-      <!--        <version>${revision}</version>-->
-      <!--      </dependency>-->
+      <dependency>
+        <groupId>ru.ibs.training.java.spring</groupId>
+        <artifactId>spring-advanced-rest-impl</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>ru.ibs.training.java.spring</groupId>
+        <artifactId>spring-advanced-rest-api</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>ru.ibs.training.java.spring</groupId>
+        <artifactId>spring-advanced-rest-client</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>ru.ibs.training.java.spring</groupId>
+        <artifactId>spring-advanced-rest-stub</artifactId>
+        <version>${revision}</version>
+      </dependency>
 
       <dependency>
         <groupId>ru.ibs.training.java.spring</groupId>
