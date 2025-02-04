@@ -1,0 +1,31 @@
+POST http://localhost:8081/persons
+Content-Type: application/json
+
+{
+  "name": "John Smith4",
+  "country": {
+    "codeName": "US",
+    "name": "USA"
+  }
+}
+
+###
+
+GET http://localhost:8081/add/com.luxoft.springadvanced.springdatarest.registration.PluggedListener
+
+###
+
+POST http://localhost:8081/persons
+Content-Type: application/json
+
+{
+  "name": "John Smith4",
+  "country": {
+    "codeName": "US",
+    "name": "USA"
+  }
+}
+
+###
+
+

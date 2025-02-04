@@ -1,0 +1,48 @@
+###
+GET http://localhost:8081/countries
+Accept: application/json
+
+###
+GET http://localhost:8081/persons
+
+###
+GET http://localhost:8081/persons/4
+
+###
+PATCH http://localhost:8081/persons/4
+Content-Type: application/json
+
+{
+  "name": "Sophia Jones",
+  "country": "AU",
+  "isRegistered": "true"
+}
+
+###
+DELETE http://localhost:8081/persons/4
+
+###
+POST http://localhost:8081/persons
+Content-Type: application/json
+
+{
+  "name": "John Smith4",
+  "country": {
+    "codeName": "US",
+    "name": "USA"
+  }
+}
+
+###
+GET http://localhost:8081/persons/4
+If-None-Match: 5
+
+### not supported by ShallowEtagHeaderFilter
+GET http://localhost:8081/persons/4
+If-Match: "03a6c9f0aa136944e8cb98ade579082dc"
+
+# 1. Получить данные GET http://localhost:8081/persons/4
+# 2. Запросить данные с If-None-Match и etag
+# 3. Изменить данные
+# 4. Запросить данные с If-None-Match и etag снова
+
