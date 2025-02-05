@@ -266,6 +266,12 @@
         <artifactId>spring-advanced-solutions</artifactId>
         <version>${revision}</version>
       </dependency>
+
+      <dependency>
+        <groupId>ru.ibs.training.java.spring</groupId>
+        <artifactId>webflux-testing</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <!--endregion-->
 
     </dependencies>

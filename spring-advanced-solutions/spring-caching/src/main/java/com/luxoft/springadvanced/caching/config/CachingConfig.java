@@ -1,5 +1,6 @@
 package com.luxoft.springadvanced.caching.config;
 
+import lombok.val;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCache;
@@ -17,8 +18,9 @@ public class CachingConfig {
 
     @Bean
     public CacheManager cacheManager() {
-        SimpleCacheManager cacheManager = new SimpleCacheManager();
-        cacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("directory"), new ConcurrentMapCache("addresses")));
+        val cacheManager = new SimpleCacheManager();
+        cacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("directory"),
+                                             new ConcurrentMapCache("addresses")));
         return cacheManager;
     }
 
