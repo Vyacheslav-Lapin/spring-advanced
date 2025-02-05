@@ -1,6 +1,5 @@
-package com.luxoft.springadvanced.webflux;
+package com.luxoft.springadvanced.webflux.controller;
 
-import com.luxoft.springadvanced.webflux.controller.PassengerController;
 import com.luxoft.springadvanced.webflux.dao.PassengerRepository;
 import com.luxoft.springadvanced.webflux.model.Passenger;
 import com.luxoft.springadvanced.webflux.service.PassengerServiceImpl;
@@ -13,7 +12,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -22,7 +20,6 @@ import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -45,7 +42,8 @@ class PassengerControllerTest {
         .setName("John Smith")
         .setCoveredDistance(1_000);
 
-    Mockito.when(repository.save(passenger)).thenReturn(Mono.just(passenger));
+    Mockito.when(repository.save(passenger))
+           .thenReturn(Mono.just(passenger));
 
     webClient.post()
              .uri("/create")
@@ -71,7 +69,7 @@ class PassengerControllerTest {
         .thenReturn(passengerFlux);
 
     webClient.get().uri("/name/{name}", "John Smith")
-             .header(HttpHeaders.ACCEPT, "application/json")
+             .accept(MediaType.APPLICATION_JSON)
              .exchange()
              .expectStatus().isOk()
              .expectBodyList(Passenger.class);

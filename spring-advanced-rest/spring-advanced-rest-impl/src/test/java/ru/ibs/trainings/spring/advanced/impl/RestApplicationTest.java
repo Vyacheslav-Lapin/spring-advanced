@@ -80,7 +80,7 @@ class RestApplicationTest {
         .thenReturn(countriesMap.values()
                                 .transformList(CountryMapper::toCountryEntity));
 
-    mvc.perform(get("/countries"))
+    mvc.perform(get("/custom-countries"))
        .andExpect(status().isOk())
        .andExpect(content().contentType(APPLICATION_JSON))
        .andExpect(jsonPath("$", hasSize(3)));

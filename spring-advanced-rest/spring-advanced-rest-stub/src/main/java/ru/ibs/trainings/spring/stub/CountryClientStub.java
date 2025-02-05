@@ -9,6 +9,8 @@ import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
 import lombok.val;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import ru.ibs.trainings.spring.api.CountryController;
 import ru.ibs.trainings.spring.dto.CountryDto;
@@ -36,5 +38,11 @@ public class CountryClientStub implements CountryController {
   @Override
   public List<CountryDto> findAll() {
     return countries();
+  }
+
+  @Override
+  public ResponseEntity<CountryDto> save(CountryDto countryDto) {
+    return ResponseEntity.status(HttpStatus.CREATED)
+                         .body(countryDto);
   }
 }

@@ -16,9 +16,7 @@ public class Passenger implements Serializable {
 
   @Serial private static final long serialVersionUID = 1L;
 
-  @Id
-  int id;
+  @Id int id;
   String name;
   long coveredDistance;
-
 }
