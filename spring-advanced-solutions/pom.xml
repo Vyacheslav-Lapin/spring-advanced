@@ -9,9 +9,9 @@
   <artifactId>spring-advanced-solutions</artifactId>
   <packaging>pom</packaging>
   <modules>
-
+    <module>webflux-testing</module>
   </modules>
-  <properties>
-    <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
-  </properties>
+<!--  <properties>-->
+<!--    <spring-boot.repackage.skip>true</spring-boot.repackage.skip>-->
+<!--  </properties>-->
 </project>
