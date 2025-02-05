@@ -11,6 +11,7 @@
   <modules>
     <module>webflux-testing</module>
     <module>spring-caching</module>
+    <module>spring-rest-actuator</module>
   </modules>
 <!--  <properties>-->
 <!--    <spring-boot.repackage.skip>true</spring-boot.repackage.skip>-->

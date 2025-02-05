@@ -89,11 +89,14 @@ class SpringCachingTest {
   @Disabled("Разобраться почему не кеширует")
   void testAddressCacheableNoParameters() {
     val john = new Client("John", "Bucharest, Calea Floreasca 167");
+
     val date1 = System.currentTimeMillis();
+
     service.getAddressCacheableNoParameters(john);
-    john.setAddress("New address");
+
     val date2 = System.currentTimeMillis();
 
+    john.setAddress("New address");
     assertEquals("Bucharest, Calea Floreasca 167", service.getAddressCacheableNoParameters(john),
                  "The address should be taken from the cache, so unchanged");
 

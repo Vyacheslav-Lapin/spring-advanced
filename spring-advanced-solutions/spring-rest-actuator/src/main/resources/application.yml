@@ -1,0 +1,19 @@
+server:
+  port : 8081
+management:
+  endpoints:
+    web:
+       exposure:
+          include: health,beans,loggers
+
+  endpoint:
+    loggers:
+      enabled: false
+    health:
+      show-details: always
+
+# spring:
+#  security:
+#    user:
+#      name: admin
+#      password: password
