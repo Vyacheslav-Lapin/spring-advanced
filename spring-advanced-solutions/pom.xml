@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0">
-  <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>ru.ibs.training.java.spring</groupId>
     <artifactId>spring-advanced</artifactId>
@@ -9,11 +8,14 @@
   <artifactId>spring-advanced-solutions</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>webflux-testing</module>
-    <module>spring-caching</module>
-    <module>spring-rest-actuator</module>
+    <module>spring-advanced-solutions-webflux</module>
+    <module>spring-advanced-solutions-caching</module>
+    <module>spring-advanced-solutions-actuator</module>
+    <module>spring-advanced-solutions-mockito</module>
+    <module>spring-advanced-solutions-task01</module>
   </modules>
 <!--  <properties>-->
 <!--    <spring-boot.repackage.skip>true</spring-boot.repackage.skip>-->
 <!--  </properties>-->
+  <modelVersion>4.0.0</modelVersion>
 </project>
