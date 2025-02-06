@@ -14,6 +14,7 @@
     <module>spring-advanced-solutions-mockito</module>
     <module>spring-advanced-solutions-task01</module>
     <module>spring-advanced-solutions-data-rest</module>
+    <module>spring-advanced-solutions-data-rest-events</module>
   </modules>
 <!--  <properties>-->
 <!--    <spring-boot.repackage.skip>true</spring-boot.repackage.skip>-->
