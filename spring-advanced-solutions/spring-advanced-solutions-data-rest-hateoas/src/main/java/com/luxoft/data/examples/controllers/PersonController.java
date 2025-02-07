@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -44,7 +43,6 @@ public class PersonController {
 
   @GetMapping("/{id:[0-9]+}")
   public Person findById(@PathVariable Long id) {
-
     return personRepository
         .findById(id)
         .orElseThrow(() -> new PersonNotFoundException(id));
@@ -58,7 +56,7 @@ public class PersonController {
 
     return personRepository.findAll().stream()
                            .filter(p -> p.getName().toLowerCase().contains(name.toLowerCase()))
-                           .collect(Collectors.toList());
+                           .toList();
   }
 
   @DeleteMapping("/{id}")
@@ -92,9 +90,8 @@ public class PersonController {
   public Person addPerson(@RequestBody Person person) {
     Address address = person.getAddress();
 
-    if (address != null) {
+    if (address != null)
       address = addressRepository.save(address);
-    }
     person.setAddress(address);
 
     return personRepository.save(person);
