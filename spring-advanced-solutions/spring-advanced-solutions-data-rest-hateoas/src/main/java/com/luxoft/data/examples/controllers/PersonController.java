@@ -6,6 +6,7 @@ import com.luxoft.data.examples.model.Person;
 import com.luxoft.data.examples.repositories.AddressRepository;
 import com.luxoft.data.examples.repositories.PersonRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -52,13 +53,11 @@ public class PersonController {
   @GetMapping("/find")
   public List<Person> findByName(@RequestParam String name) {
 
-    if (name.isBlank()) {
+    if (name.isBlank())
       throw new IllegalArgumentException("Name should not be null or empty");
-    }
 
     return personRepository.findAll().stream()
-                           .filter(p -> p.getName().toLowerCase()
-                                         .contains(name.toLowerCase()))
+                           .filter(p -> p.getName().toLowerCase().contains(name.toLowerCase()))
                            .collect(Collectors.toList());
   }
 
@@ -69,7 +68,7 @@ public class PersonController {
 
   @PatchMapping("/{id}")
   public Person updatePerson(@RequestBody Person person, @PathVariable Long id) {
-    Person existingPerson = personRepository
+    val existingPerson = personRepository
         .findById(id)
         .orElseThrow(() -> new PersonNotFoundException(id));
 

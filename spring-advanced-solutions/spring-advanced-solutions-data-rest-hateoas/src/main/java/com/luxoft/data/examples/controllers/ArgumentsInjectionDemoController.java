@@ -1,28 +1,31 @@
 package com.luxoft.data.examples.controllers;
 
-import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.WebRequest;
-import jakarta.servlet.http.HttpSession;
 
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequestMapping("/admin")
 public class ArgumentsInjectionDemoController {
 
   @GetMapping("/headers")
   public String headers(@RequestHeader Map<String, String> headers) {
-    StringBuilder builder = new StringBuilder();
-
-    headers.forEach((key, value) -> builder.append(key)
-                                           .append(": ")
-                                           .append(value)
-                                           .append("</br>"));
-    return builder.toString();
+    return headers.entrySet().stream()
+                  .map(entry -> "%s: %s</br>".formatted(entry.getKey(), entry.getValue()))
+                  .collect(Collectors.joining());
   }
 
   @GetMapping("/headers/ct")
@@ -39,7 +42,7 @@ public class ArgumentsInjectionDemoController {
   public void requestAndSession(WebRequest request,
                                 NativeWebRequest nativeWebRequest,
                                 HttpSession session) {
-    System.out.println();
+    log.info("/request endpoint called!");
   }
 
   @GetMapping("/locale")
@@ -49,12 +52,7 @@ public class ArgumentsInjectionDemoController {
 
   @GetMapping("/timezone")
   public String timeZone(TimeZone timeZone, ZoneId zoneId) {
-    StringBuilder builder = new StringBuilder();
-
-    builder.append(timeZone);
-    builder.append("</br>");
-    builder.append("zoneId: ").append(zoneId);
-
-    return builder.toString();
+    return timeZone + "</br>"
+           + "zoneId: " + zoneId;
   }
 }

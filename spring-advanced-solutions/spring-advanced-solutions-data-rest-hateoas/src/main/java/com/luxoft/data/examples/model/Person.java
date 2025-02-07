@@ -20,10 +20,10 @@ import org.hibernate.proxy.HibernateProxy;
 import java.util.Objects;
 
 @Data
-@NoArgsConstructor
-@RequiredArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "PERSON")
+@RequiredArgsConstructor
 @SuppressWarnings({"com.intellij.jpb.LombokDataInspection",
                    "com.haulmont.ampjpb.LombokDataInspection"})
 public class Person {

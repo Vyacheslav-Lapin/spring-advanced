@@ -16,6 +16,7 @@
     <module>spring-advanced-solutions-data-rest</module>
     <module>spring-advanced-solutions-data-rest-events</module>
     <module>spring-advanced-solutions-data-rest-hateoas</module>
+    <module>spring-advanced-solutions-data-rest-webclient</module>
   </modules>
 <!--  <properties>-->
 <!--    <spring-boot.repackage.skip>true</spring-boot.repackage.skip>-->

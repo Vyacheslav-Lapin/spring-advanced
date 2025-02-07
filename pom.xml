@@ -41,6 +41,7 @@
     <jaxb-api.version>2.3.0</jaxb-api.version>
     <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
     <javax.el-api.version>3.0.0</javax.el-api.version>
+    <springdoc-openapi.version>2.8.4</springdoc-openapi.version>
 
     <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
     <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
@@ -226,6 +227,19 @@
         <version>${javax.el-api.version}</version>
       </dependency>
 
+      <!--region SpringDoc OpenAPI-->
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        <version>${springdoc-openapi.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-hateoas</artifactId>
+        <version>1.8.0</version>
+      </dependency>
+      <!--endregion-->
+
       <!--region Modules-->
       <dependency>
         <groupId>ru.ibs.training.java.spring</groupId>
@@ -271,7 +285,7 @@
 
       <dependency>
         <groupId>ru.ibs.training.java.spring</groupId>
-        <artifactId>spring-advanced-solutions-webflux</artifactId>
+        <artifactId>spring-advanced-solutions-actuator</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -281,7 +295,17 @@
       </dependency>
       <dependency>
         <groupId>ru.ibs.training.java.spring</groupId>
-        <artifactId>spring-advanced-solutions-actuator</artifactId>
+        <artifactId>spring-advanced-solutions-data-rest</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>ru.ibs.training.java.spring</groupId>
+        <artifactId>spring-advanced-solutions-data-rest-events</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>ru.ibs.training.java.spring</groupId>
+        <artifactId>spring-advanced-solutions-data-rest-hateoas</artifactId>
         <version>${revision}</version>
       </dependency>
       <dependency>
@@ -292,6 +316,11 @@
       <dependency>
         <groupId>ru.ibs.training.java.spring</groupId>
         <artifactId>spring-advanced-solutions-task01</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>ru.ibs.training.java.spring</groupId>
+        <artifactId>spring-advanced-solutions-webflux</artifactId>
         <version>${revision}</version>
       </dependency>
       <!--endregion-->
