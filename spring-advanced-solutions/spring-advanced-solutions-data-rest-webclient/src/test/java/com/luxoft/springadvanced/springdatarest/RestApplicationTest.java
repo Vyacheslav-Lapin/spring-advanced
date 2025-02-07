@@ -2,6 +2,8 @@ package com.luxoft.springadvanced.springdatarest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.luxoft.springadvanced.springdatarest.beans.BeansBuilder;
+import com.luxoft.springadvanced.springdatarest.dao.CountryRepository;
+import com.luxoft.springadvanced.springdatarest.dao.PersonRepository;
 import com.luxoft.springadvanced.springdatarest.exceptions.PersonNotFoundException;
 import com.luxoft.springadvanced.springdatarest.model.*;
 import org.junit.jupiter.api.Test;

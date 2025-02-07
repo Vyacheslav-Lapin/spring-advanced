@@ -1,21 +1,30 @@
-package com.luxoft.springadvanced.springdatarest.model;
+package com.luxoft.springadvanced.springdatarest.controllers;
 
+import com.luxoft.springadvanced.springdatarest.dao.PersonRepository;
 import com.luxoft.springadvanced.springdatarest.exceptions.PersonNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.luxoft.springadvanced.springdatarest.model.Country;
+import com.luxoft.springadvanced.springdatarest.model.Person;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequiredArgsConstructor
 public class PersonController {
 
-    @Autowired
-    private PersonRepository repository;
+    PersonRepository repository;
 
-    @Autowired
-    private Map<String, Country> countriesMap;
+    Map<String, Country> countriesMap;
 
     @GetMapping("/persons")
     List<Person> findAll() {
@@ -52,13 +61,11 @@ public class PersonController {
 
                     String isRegistered = updates.get("isRegistered");
                     if (null != isRegistered) {
-                        person.setIsRegistered(isRegistered.equalsIgnoreCase("true") ? true : false);
+                        person.setIsRegistered(isRegistered.equalsIgnoreCase("true"));
                     }
                     return repository.save(person);
                 })
-                .orElseGet(() -> {
-                    throw new PersonNotFoundException(id);
-                });
+                .orElseThrow(() -> new PersonNotFoundException(id));
 
     }
 

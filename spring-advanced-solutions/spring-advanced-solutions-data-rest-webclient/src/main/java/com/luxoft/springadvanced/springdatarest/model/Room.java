@@ -1,42 +1,37 @@
 package com.luxoft.springadvanced.springdatarest.model;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import static lombok.AccessLevel.*;
+
+@Data
+@ToString(onlyExplicitlyIncluded = true)
 public class Room {
 
-    private String roomNumber;
-    private int seats;
-    private Set<Person> persons = new HashSet<>();
+  @NonNull @ToString.Include String roomNumber;
+  @Getter(NONE) @NonNull Integer seats;
+  Set<Person> persons = new HashSet<>();
 
-    public Room(String roomNumber, int seats) {
-        this.roomNumber = roomNumber;
-        this.seats = seats;
-    }
+  public Set<Person> getPersons() {
+    return Collections.unmodifiableSet(persons);
+  }
 
-    public String getRoomNumber() {
-        return roomNumber;
+  public boolean addPerson(Person person) {
+    if (persons.size() >= seats) {
+      throw new RuntimeException("Cannot add more persons than the capacity of the room!");
     }
+    return persons.add(person);
+  }
 
-    public Set<Person> getPersons() {
-        return Collections.unmodifiableSet(persons);
-    }
-
-    public boolean addPerson(Person person) {
-        if (persons.size() >= seats) {
-            throw new RuntimeException("Cannot add more persons than the capacity of the room!");
-        }
-        return persons.add(person);
-    }
-
-    public boolean removePerson(Person person) {
-        return persons.remove(person);
-    }
-
-    @Override
-    public String toString() {
-        return "Room " + getRoomNumber();
-    }
+  public boolean removePerson(Person person) {
+    return persons.remove(person);
+  }
 
 }
