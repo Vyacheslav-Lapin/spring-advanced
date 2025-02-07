@@ -1,0 +1,9 @@
+curl http://localhost:8080/employees
+
+curl -X POST -d '{"surname":"Иванов"}' \
+    -H "Content-Type: application/json" \
+    http://localhost:8080/employees/findByExample
+
+curl http://localhost:8080/employees \
+    -d '{ "name": "Димон"}' \
+    -X POST -H "Content-Type: application/json"

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <groupId>ru.ibs.training.java.spring</groupId>
+    <artifactId>spring-advanced-solutions</artifactId>
+    <version>${revision}</version>
+  </parent>
+
+  <artifactId>spring-advanced-solutions-swagger</artifactId>
+
+	<description>Employees backend</description>
+  <properties>
+    <maven-reporting-exec.version>1.1</maven-reporting-exec.version>
+    <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+  </properties>
+
+  <dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-rest-hal-explorer</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-hateoas</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-hateoas</artifactId>
+    </dependency>
+
+		<dependency>
+			<groupId>org.springframework.restdocs</groupId>
+			<artifactId>spring-restdocs-mockmvc</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.reporting</groupId>
+			<artifactId>maven-reporting-exec</artifactId>
+			<version>${maven-reporting-exec.version}</version>
+		</dependency>
+	</dependencies>
+
+  <modelVersion>4.0.0</modelVersion>
+</project>
