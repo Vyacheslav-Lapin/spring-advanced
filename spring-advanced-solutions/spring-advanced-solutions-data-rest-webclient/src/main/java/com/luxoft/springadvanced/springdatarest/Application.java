@@ -46,7 +46,7 @@ public class Application {
     return registration;
   }
 
-  @Bean(name = "etagFilter")
+  @Bean
   public ShallowEtagHeaderFilter etagFilter() {
     return new ShallowEtagHeaderFilter();
   }

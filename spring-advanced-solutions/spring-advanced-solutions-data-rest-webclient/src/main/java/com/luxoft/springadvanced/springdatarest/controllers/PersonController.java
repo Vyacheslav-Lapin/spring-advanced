@@ -61,7 +61,7 @@ public class PersonController {
 
                     String isRegistered = updates.get("isRegistered");
                     if (null != isRegistered) {
-                        person.setIsRegistered(isRegistered.equalsIgnoreCase("true"));
+                        person.setRegistered(isRegistered.equalsIgnoreCase("true"));
                     }
                     return repository.save(person);
                 })

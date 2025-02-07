@@ -46,7 +46,7 @@ public class BeansBuilder {
                     String[] personString = line.toString().split(";");
                     Person person = new Person(personString[1].trim());
                     person.setCountry(countriesMap.get(personString[0].trim()));
-                    person.setIsRegistered(false);
+                    person.setRegistered(false);
                     room.addPerson(person);
                 }
             } while (line != null);
