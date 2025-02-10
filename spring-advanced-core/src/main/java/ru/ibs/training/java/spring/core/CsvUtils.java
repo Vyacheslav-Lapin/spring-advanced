@@ -1,4 +1,4 @@
-package ru.ibs.trainings.spring.advanced.impl.common;
+package ru.ibs.training.java.spring.core;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.MappingIterator;
@@ -17,8 +17,19 @@ public class CsvUtils {
   private final CsvMapper CSV_MAPPER = new CsvMapper();
 
   @SneakyThrows
-  public <T> MappingIterator<T> readFile(@Language("file-reference") String fileName, TypeReference<T> typeReference) {
+  public <T> MappingIterator<T> readFile(@Language("file-reference") String fileName, Class<T> clazz) {
+    val schema = CSV_MAPPER.disable(CsvParser.Feature.WRAP_AS_ARRAY)
+                            .typedSchemaFor(clazz)
+                            .withColumnSeparator(';')
+                            .withHeader();
 
+    return CSV_MAPPER.readerFor(clazz)
+                     .with(schema)
+                     .readValues(CsvUtils.class.getResource(fileName));
+  }
+
+  @SneakyThrows
+  public <T> MappingIterator<T> readFile(@Language("file-reference") String fileName, TypeReference<T> typeReference) {
     val schema = CSV_MAPPER
         .disable(CsvParser.Feature.WRAP_AS_ARRAY)
         .typedSchemaFor(typeReference)

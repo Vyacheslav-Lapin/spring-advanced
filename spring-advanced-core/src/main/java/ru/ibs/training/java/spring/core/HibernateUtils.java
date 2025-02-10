@@ -1,4 +1,4 @@
-package ru.ibs.trainings.spring.advanced.impl.common;
+package ru.ibs.training.java.spring.core;
 
 import lombok.experimental.UtilityClass;
 import org.hibernate.proxy.HibernateProxy;

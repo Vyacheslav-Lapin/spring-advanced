@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0">
-  <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>ru.ibs.training.java.spring</groupId>
     <artifactId>spring-advanced-rest</artifactId>
     <version>${revision}</version>
   </parent>
+
   <artifactId>spring-advanced-rest-api</artifactId>
   <properties>
     <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
   </properties>
+
+  <build>
+    <defaultGoal>clean install</defaultGoal>
+  </build>
+
+  <modelVersion>4.0.0</modelVersion>
 </project>

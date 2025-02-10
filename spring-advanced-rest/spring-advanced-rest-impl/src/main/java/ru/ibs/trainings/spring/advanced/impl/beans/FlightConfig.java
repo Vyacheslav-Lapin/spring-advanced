@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import static java.util.stream.Collectors.*;
-import static ru.ibs.trainings.spring.advanced.impl.common.CsvUtils.*;
+import static ru.ibs.training.java.spring.core.CsvUtils.*;
 
 @Configuration
 public class FlightConfig {

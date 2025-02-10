@@ -1,4 +1,4 @@
-package com.luxoft.ptc.employees.employees;
+package com.luxoft.ptc.employees;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CustomController {
 
-    @PostMapping(path = "/custom")
+    @PostMapping("/custom")
     public String custom() {
         return "custom";
     }

@@ -12,13 +12,14 @@ import lombok.RequiredArgsConstructor;
 import java.util.Objects;
 
 import static lombok.AccessLevel.*;
-import static ru.ibs.trainings.spring.advanced.impl.common.HibernateUtils.*;
+import static ru.ibs.training.java.spring.core.HibernateUtils.*;
 
 @Data
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor(access = PROTECTED)// avoid "No default constructor for entity"
-@SuppressWarnings({"com.haulmont.ampjpb.LombokDataInspection", "com.intellij.jpb.LombokDataInspection"})
+@SuppressWarnings({"com.haulmont.ampjpb.LombokDataInspection",
+                   "com.intellij.jpb.LombokDataInspection"})
 public class Passenger {
 
     @Id @GeneratedValue Long id;

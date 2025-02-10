@@ -1,6 +1,5 @@
 package ru.ibs.trainings.spring.advanced.impl.model;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -11,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.Objects;
 
 import static lombok.AccessLevel.*;
-import static ru.ibs.trainings.spring.advanced.impl.common.HibernateUtils.*;
+import static ru.ibs.training.java.spring.core.HibernateUtils.*;
 
 @Data
 @Entity
@@ -28,7 +27,7 @@ public class Country {
     public final boolean equals(Object o) {
       return this == o || o instanceof Country country
                           && effectiveClass(this) == effectiveClass(country)
-                                            && Objects.equals(getCodeName(), country.getCodeName());
+                          && Objects.equals(getCodeName(), country.getCodeName());
     }
 
     @Override

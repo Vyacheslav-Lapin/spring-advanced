@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -11,7 +10,6 @@
   <groupId>ru.ibs.training.java.spring</groupId>
   <artifactId>spring-advanced</artifactId>
   <version>${revision}</version>
-
   <packaging>pom</packaging>
   <modules>
     <module>spring-advanced-task01</module>
@@ -20,6 +18,7 @@
     <module>spring-advanced-webflux-testing</module>
     <module>examples-data-rest</module>
     <module>spring-advanced-solutions</module>
+    <module>spring-advanced-core</module>
   </modules>
 
   <properties>
@@ -28,7 +27,6 @@
     <minimal.maven.version>3.9.9</minimal.maven.version>
     <spring-boot.versionoot>3.4.2</spring-boot.versionoot>
     <spring-cloud.version>2024.0.0</spring-cloud.version>
-
     <jspecify.version>1.0.0</jspecify.version>
     <checker.version>3.48.4</checker.version>
     <annotations.version>26.0.2</annotations.version>
@@ -42,7 +40,6 @@
     <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
     <javax.el-api.version>3.0.0</javax.el-api.version>
     <springdoc-openapi.version>2.8.4</springdoc-openapi.version>
-
     <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
     <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
     <yaml-properties-maven-plugin.version>1.1.3</yaml-properties-maven-plugin.version>
@@ -226,7 +223,6 @@
         <artifactId>javax.el-api</artifactId>
         <version>${javax.el-api.version}</version>
       </dependency>
-
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
@@ -282,13 +278,11 @@
         <artifactId>spring-advanced-webflux-testing</artifactId>
         <version>${revision}</version>
       </dependency>
-
       <dependency>
         <groupId>ru.ibs.training.java.spring</groupId>
         <artifactId>spring-advanced-solutions</artifactId>
         <version>${revision}</version>
       </dependency>
-
       <dependency>
         <groupId>ru.ibs.training.java.spring</groupId>
         <artifactId>spring-advanced-solutions-actuator</artifactId>
@@ -339,13 +333,18 @@
         <artifactId>spring-advanced-solutions-webflux</artifactId>
         <version>${revision}</version>
       </dependency>
+      <dependency>
+        <groupId>ru.ibs.training.java.spring</groupId>
+        <artifactId>spring-advanced-core</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <!--endregion-->
 
     </dependencies>
   </dependencyManagement>
 
   <build>
-    <defaultGoal>clean package</defaultGoal>
+    <defaultGoal>clean verify</defaultGoal>
 
     <pluginManagement>
       <plugins>
@@ -353,6 +352,24 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${maven-compiler-plugin.version}</version>
           <configuration>
+            <compilerArgs>
+              <arg>-Xlint:all,-serial,-processing</arg> <!--Включает все рекомендуемые предупреждения.-->
+
+              <arg>-J--add-exports=java.base/sun.security.ssl=ALL-UNNAMED</arg>
+              <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
+
+              <arg>-J--add-opens=java.base/java.lang=ALL-UNNAMED</arg>
+              <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+              <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
+              <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>
+              <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
+              <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
+              <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</arg>
+              <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
+              <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
+              <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+              <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED</arg>
+            </compilerArgs>
             <annotationProcessorPaths>
               <path>
                 <groupId>org.projectlombok</groupId>
@@ -469,5 +486,6 @@
       </plugin>
     </plugins>
   </build>
+
   <modelVersion>4.0.0</modelVersion>
 </project>

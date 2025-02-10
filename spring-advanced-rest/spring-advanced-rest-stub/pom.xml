@@ -20,5 +20,9 @@
     </dependency>
   </dependencies>
 
+  <build>
+    <defaultGoal>clean install</defaultGoal>
+  </build>
+
   <modelVersion>4.0.0</modelVersion>
 </project>

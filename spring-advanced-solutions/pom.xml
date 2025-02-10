@@ -19,8 +19,13 @@
     <module>spring-advanced-solutions-data-rest-webclient</module>
     <module>spring-advanced-solutions-swagger</module>
   </modules>
-<!--  <properties>-->
-<!--    <spring-boot.repackage.skip>true</spring-boot.repackage.skip>-->
-<!--  </properties>-->
+
+  <dependencies>
+    <dependency>
+      <groupId>ru.ibs.training.java.spring</groupId>
+      <artifactId>spring-advanced-core</artifactId>
+    </dependency>
+  </dependencies>
+
   <modelVersion>4.0.0</modelVersion>
 </project>

@@ -1,14 +1,12 @@
 package com.luxoft.ptc.employees;
 
-import jakarta.persistence.EntityManager;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Configuration;
+//todo 10.02.2025: переделать эти bean'ы что бы доставлять информацию в springdoc
 
-@Configuration
-@RequiredArgsConstructor
+//@Configuration
+//@RequiredArgsConstructor
 public class RestConfiguration {
 
-  EntityManager entityManager;
+//  EntityManager entityManager;
 
   //    @Bean
 //    public WebMvcConfigurer corsConfigurer() {
