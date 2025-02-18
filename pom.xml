@@ -19,6 +19,7 @@
     <module>examples-data-rest</module>
     <module>spring-advanced-solutions</module>
     <module>spring-advanced-core</module>
+    <module>spring-advanced-stomp-websocket</module>
   </modules>
 
   <properties>
@@ -338,6 +339,11 @@
         <artifactId>spring-advanced-core</artifactId>
         <version>${revision}</version>
       </dependency>
+      <dependency>
+        <groupId>ru.ibs.training.java.spring</groupId>
+        <artifactId>spring-advanced-stomp-websocket</artifactId>
+        <version>${revision}</version>
+      </dependency>
       <!--endregion-->
 
     </dependencies>
@@ -486,6 +492,5 @@
       </plugin>
     </plugins>
   </build>
-
   <modelVersion>4.0.0</modelVersion>
 </project>
