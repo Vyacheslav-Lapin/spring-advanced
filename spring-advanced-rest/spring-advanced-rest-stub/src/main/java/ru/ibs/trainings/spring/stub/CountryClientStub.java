@@ -1,8 +1,8 @@
 package ru.ibs.trainings.spring.stub;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.MappingIterator;
+import io.vavr.control.Try;
 import lombok.AccessLevel;
-import lombok.Cleanup;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -14,9 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import ru.ibs.trainings.spring.api.CountryController;
 import ru.ibs.trainings.spring.dto.CountryDto;
-import ru.ibs.trainings.spring.stub.common.CsvUtils;
 
 import java.util.List;
+
+import static ru.ibs.training.java.spring.core.CsvUtils.*;
 
 @Primary
 @Component
@@ -28,16 +29,21 @@ public class CountryClientStub implements CountryController {
   List<CountryDto> countries = readCountries();
 
   @SneakyThrows
+  @SuppressWarnings("java:S125")
   private static List<CountryDto> readCountries() {
-    @Cleanup val readCountries = CsvUtils.readFile("/countries_information.csv",
-                                                            new TypeReference<CountryDto>() {});
-    return readCountries.readAll().stream()
-                        .toList();
+
+//    @Cleanup val readCountries = CsvUtils.readFile("/countries_information.csv", CountryDto.class);
+//    return readCountries.readAll();
+
+    return Try.withResources(() -> readFile("/countries_information.csv", CountryDto.class))
+              .of(MappingIterator::readAll)
+              .getOrElseGet(__ -> List.of());
   }
 
   @Override
-  public List<CountryDto> findAll() {
-    return countries();
+  public ResponseEntity<List<CountryDto>> findAll() {
+    val countryDtos = countries();
+    return countryDtos.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(countryDtos);
   }
 
   @Override

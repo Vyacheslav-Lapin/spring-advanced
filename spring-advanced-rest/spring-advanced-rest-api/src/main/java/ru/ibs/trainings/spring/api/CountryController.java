@@ -11,7 +11,7 @@ import java.util.List;
 public interface CountryController {
 
   @GetMapping("/custom-countries")
-  List<CountryDto> findAll();
+  ResponseEntity<List<CountryDto>> findAll();
 
   @PostMapping("/custom-countries")
   ResponseEntity<CountryDto> save(@RequestBody CountryDto countryDto);

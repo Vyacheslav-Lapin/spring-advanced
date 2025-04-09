@@ -19,12 +19,14 @@ import ru.ibs.trainings.spring.dto.PassengerDto;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static java.util.function.Function.*;
 import static java.util.stream.Collectors.*;
+import static org.springframework.http.ResponseEntity.*;
+import static ru.ibs.training.java.spring.core.CsvUtils.*;
 import static ru.ibs.trainings.spring.dto.PassengerDto.Fields.*;
-import static ru.ibs.trainings.spring.stub.common.CsvUtils.*;
 
 
 @Primary
@@ -36,7 +38,7 @@ public class PassengerClientStub implements PassengerController {
   CountryController countryController;
 
   @Getter(lazy = true, value = AccessLevel.PRIVATE)
-  Map<String, CountryDto> countryMap = countryController.findAll().stream()
+  Map<String, CountryDto> countryMap = countryController.findAll().getBody().stream()
       .collect(toUnmodifiableMap(CountryDto::codeName, identity()));
 
   @Getter(lazy = true, value = AccessLevel.PRIVATE)
@@ -57,12 +59,12 @@ public class PassengerClientStub implements PassengerController {
 
   @Override
   public ResponseEntity<List<PassengerDto>> findAll() {
-    return ResponseEntity.ok(passengers().values().stream().toList());
+    return ok(passengers().values().stream().toList());
   }
 
   @Override
   public ResponseEntity<PassengerDto> createPassenger(PassengerDto passenger, Errors errors) {
-    long id = atomicLong.incrementAndGet();
+    val id = atomicLong.incrementAndGet();
     passengers().put(id, passenger.withId(id));
     return ResponseEntity.created(
         URI.create("/passengers/" + id))
@@ -70,12 +72,14 @@ public class PassengerClientStub implements PassengerController {
   }
 
   @Override
-  public PassengerDto findPassenger(Long id) {
-    return passengers().get(id);
+  public ResponseEntity<PassengerDto> findPassenger(Long id) {
+    return Optional.ofNullable(passengers().get(id))
+        .map(ResponseEntity::ok)
+        .orElseGet(() -> notFound().build());
   }
 
   @Override
-  public PassengerDto patchPassenger(Map<String, String> updates, Long id) {
+  public ResponseEntity<PassengerDto> patchPassenger(Map<String, String> updates, Long id) {
     val builder = passengers().get(id).toBuilder();
 
     if (updates.containsKey(NAME))
@@ -91,6 +95,6 @@ public class PassengerClientStub implements PassengerController {
 
     passengers().put(id, dto);
 
-    return dto;
+    return ok(dto);
   }
 }

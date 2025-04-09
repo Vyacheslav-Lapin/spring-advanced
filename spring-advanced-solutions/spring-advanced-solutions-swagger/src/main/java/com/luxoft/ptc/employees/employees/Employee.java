@@ -16,6 +16,7 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import static ru.ibs.training.java.spring.core.HibernateUtils.*;
 
 @Data
 @Entity
+@Accessors(chain = true, fluent = false)
 @FieldDefaults(makeFinal = false) // 'false' is a default value for 'makeFinal' @FieldDefaults annotation param, but it overrides by lombok.config in the root of the project, so, to take effect, we must explicitly set it here.
 @SuppressWarnings({"com.haulmont.ampjpb.LombokDataInspection",
                    "com.intellij.jpb.LombokDataInspection",

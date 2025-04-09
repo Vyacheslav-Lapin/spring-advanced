@@ -21,12 +21,13 @@ public class CountryControllerImpl implements CountryController {
   CountryRepository repository;
 
   @Override
-  public List<CountryDto> findAll() {
-    return repository.findAll().stream()
-                     .map(country -> CountryDto.builder()
-                                               .codeName(country.getCodeName())
-                                               .name(country.getName()).build())
-                     .toList();
+  public ResponseEntity<List<CountryDto>> findAll() {
+    val countryDtos = repository.findAll().stream()
+                         .map(country -> CountryDto.builder()
+                                                   .codeName(country.getCodeName())
+                                                   .name(country.getName()).build())
+                         .toList();
+    return countryDtos.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(countryDtos);
   }
 
   @Override

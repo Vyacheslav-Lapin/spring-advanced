@@ -17,7 +17,7 @@ public class CsvUtils {
   private final CsvMapper CSV_MAPPER = new CsvMapper();
 
   @SneakyThrows
-  public <T> MappingIterator<T> readFile(@Language("file-reference") String fileName, Class<T> clazz) {
+  public <T> MappingIterator<T> readFile(@Language("file-reference") String fileName, Class<? extends T> clazz) {
     val schema = CSV_MAPPER.disable(CsvParser.Feature.WRAP_AS_ARRAY)
                             .typedSchemaFor(clazz)
                             .withColumnSeparator(';')
@@ -29,7 +29,8 @@ public class CsvUtils {
   }
 
   @SneakyThrows
-  public <T> MappingIterator<T> readFile(@Language("file-reference") String fileName, TypeReference<T> typeReference) {
+  @SuppressWarnings("unused")
+  public <T> MappingIterator<T> readFile(@Language("file-reference") String fileName, TypeReference<? extends T> typeReference) {
     val schema = CSV_MAPPER
         .disable(CsvParser.Feature.WRAP_AS_ARRAY)
         .typedSchemaFor(typeReference)

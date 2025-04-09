@@ -30,7 +30,7 @@ class SpringCachingTest {
     val john = new Client("John", "Bucharest, Calea Floreasca 167");
     val date1 = System.currentTimeMillis();
     service.getCacheableAddress(john);
-    john.setAddress("New address");
+    john.address("New address");
     val date2 = System.currentTimeMillis();
     assertEquals("Bucharest, Calea Floreasca 167", service.getCacheableAddress(john),
                  "The address should be taken from the cache, so unchanged");
@@ -46,7 +46,7 @@ class SpringCachingTest {
     val john = new Client("John", "Bucharest, Calea Floreasca 167");
     val date1 = System.currentTimeMillis();
     service.getCacheableAddressMultipleCaches(john);
-    john.setAddress("New address");
+    john.address("New address");
     val date2 = System.currentTimeMillis();
     assertEquals("Bucharest, Calea Floreasca 167", service.getCacheableAddressMultipleCaches(john),
                  "The address should be taken from the cache, so unchanged");
@@ -58,7 +58,7 @@ class SpringCachingTest {
   @Test
   void testAddressCacheEvict() {
     val john = new Client("John", "Bucharest, Calea Floreasca 167")
-        .setAddress("New address");
+        .address("New address");
 
     val date1 = System.currentTimeMillis();
     service.getAddressCacheEvict(john);
@@ -74,7 +74,7 @@ class SpringCachingTest {
   @Test
   void testAddressCacheEvictSelectively() {
     val john = new Client("John", "Bucharest, Calea Floreasca 167")
-        .setAddress("New address");
+        .address("New address");
     val date1 = System.currentTimeMillis();
     service.getAddressCacheEvictSelectively(john);
     val date2 = System.currentTimeMillis();
@@ -96,7 +96,7 @@ class SpringCachingTest {
 
     val date2 = System.currentTimeMillis();
 
-    john.setAddress("New address");
+    john.address("New address");
     assertEquals("Bucharest, Calea Floreasca 167", service.getAddressCacheableNoParameters(john),
                  "The address should be taken from the cache, so unchanged");
 
@@ -109,7 +109,7 @@ class SpringCachingTest {
   @Test
   void testAddressCachePutCondition() {
     val john = new Client("John", "Bucharest, Calea Floreasca 167")
-        .setAddress("New address");
+        .address("New address");
 
     var date1 = System.currentTimeMillis();
     service.getAddressCachePutCondition(john);
@@ -124,7 +124,7 @@ class SpringCachingTest {
     val mike = new Client("Mike", "Bucharest, Calea Floreasca 167");
     date1 = System.currentTimeMillis();
     service.getAddressCachePutCondition(mike);
-    mike.setAddress("New address");
+    mike.address("New address");
     date2 = System.currentTimeMillis();
     assertEquals("New address", service.getAddressCachePutCondition(mike),
                  "The address should be updated");
@@ -137,11 +137,11 @@ class SpringCachingTest {
   @Test
   void testPhoneCacheEvict() {
     val john = new Client("John", "Bucharest, Calea Floreasca 167")
-        .setPhone("123467890");
+        .phone("123467890");
 
     val date1 = System.currentTimeMillis();
     service.getPhoneCacheEvict(john);
-    john.setPhone("0987654321");
+    john.phone("0987654321");
     val date2 = System.currentTimeMillis();
     assertEquals("0987654321", service.getPhoneCacheEvict(john),
                  "The phone should be updated");

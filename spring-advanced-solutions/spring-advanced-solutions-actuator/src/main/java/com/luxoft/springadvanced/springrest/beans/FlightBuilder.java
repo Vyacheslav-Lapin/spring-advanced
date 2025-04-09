@@ -1,59 +1,44 @@
 package com.luxoft.springadvanced.springrest.beans;
 
+import com.fasterxml.jackson.databind.MappingIterator;
 import com.luxoft.springadvanced.springrest.model.Country;
 import com.luxoft.springadvanced.springrest.model.Flight;
 import com.luxoft.springadvanced.springrest.model.Passenger;
+import io.vavr.control.Try;
 import lombok.val;
 import org.springframework.context.annotation.Bean;
+import ru.ibs.training.java.spring.core.CsvUtils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.Map;
+
+import static java.util.function.UnaryOperator.*;
+import static java.util.stream.Collectors.*;
 
 public class FlightBuilder {
 
-    private Map<String, Country> countriesMap = new HashMap<>();
+  @Bean
+  Map<String, Country> countriesMap() {
+    return Try.withResources(() -> CsvUtils.readFile("/countries_information.csv", Country.class))
+              .of(MappingIterator::readAll)
+              .map(Collection::stream)
+              .map(countryDtos -> countryDtos.collect(toUnmodifiableMap(Country::getCodeName, identity())))
+              .getOrElseThrow(ex -> new RuntimeException("Cannot read countries from csv", ex));
+  }
 
-    public FlightBuilder() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/countries_information.csv"))) {
-            String line = null;
-            do {
-                line = reader.readLine();
-                if (line != null) {
-                    String[] countriesString = line.toString().split(";");
-                    Country country = new Country(countriesString[0].trim(), countriesString[1].trim());
-                    countriesMap.put(countriesString[1].trim(), country);
-                }
-            } while (line != null);
-        }
-    }
+  @Bean
+  Flight buildFlightFromCsv() {
 
-    @Bean
-    Map<String, Country> getCountriesMap() {
-        return Collections.unmodifiableMap(countriesMap);
-    }
+    val flight = new Flight("AA1234", 20);
 
-    @Bean
-    public Flight buildFlightFromCsv() throws IOException {
-        Flight flight = new Flight("AA1234", 20);
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/flights_information.csv"))) {
-            String line = null;
-            do {
-                line = reader.readLine();
-                if (line != null) {
-                    String[] passengerString = line.toString().split(";");
-                    val passenger = new Passenger(passengerString[0].trim())
-                        .setCountry(countriesMap.get(passengerString[1].trim()))
-                        .setRegistered(false);
-                    flight.addPassenger(passenger);
-                }
-            } while (line != null);
+    Try.withResources(() -> CsvUtils.readFile("/flights_information.csv"))
+       .of(MappingIterator::readAll)
+       .getOrElseThrow(ex -> new RuntimeException("Cannot read passengers from csv"))
+       .stream()
+       .map(strings -> new Passenger(strings.getFirst())
+           .setCountry(countriesMap().get(strings.get(1).trim())))
+       .forEach(flight::addPassenger);
 
-        }
-
-        return flight;
-    }
+    return flight;
+  }
 }

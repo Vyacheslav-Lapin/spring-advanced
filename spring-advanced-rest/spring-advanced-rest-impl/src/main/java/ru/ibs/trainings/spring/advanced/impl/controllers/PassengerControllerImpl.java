@@ -3,17 +3,18 @@ package ru.ibs.trainings.spring.advanced.impl.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.ExtensionMethod;
 import lombok.val;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RestController;
 import ru.ibs.trainings.spring.advanced.impl.dao.PassengerRepository;
-import ru.ibs.trainings.spring.advanced.impl.exceptions.PassengerNotFoundException;
 import ru.ibs.trainings.spring.advanced.impl.mappers.CountryMapper;
 import ru.ibs.trainings.spring.advanced.impl.mappers.PassengerMapper;
 import ru.ibs.trainings.spring.api.PassengerController;
 import ru.ibs.trainings.spring.dto.CountryDto;
 import ru.ibs.trainings.spring.dto.PassengerDto;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -41,24 +42,26 @@ public class PassengerControllerImpl implements PassengerController {
   }
 
   @Override
-  public ResponseEntity<PassengerDto> createPassenger(PassengerDto passenger, Errors errors) {
+  public ResponseEntity<PassengerDto> createPassenger(PassengerDto passenger, @NotNull Errors errors) {
     if (errors.hasErrors()) {
       return ResponseEntity.badRequest().build();
     }
     val passengerDto = repository.save(passenger.toPassengerEntity())
-                                          .toPassengerDto();
-    return ResponseEntity.ok(passengerDto);
+                                 .toPassengerDto();
+    return ResponseEntity.created(URI.create("/passengers/" + passengerDto.id()))
+                         .body(passengerDto);
   }
 
   @Override
-  public PassengerDto findPassenger(Long id) {
+  public ResponseEntity<PassengerDto> findPassenger(Long id) {
     return repository.findById(id)
                      .map(PassengerMapper::toPassengerDto)
-                     .orElseThrow(() -> new PassengerNotFoundException(id));
+                     .map(ResponseEntity::ok)
+                     .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @Override
-  public PassengerDto patchPassenger(Map<String, String> updates, Long id) {
+  public ResponseEntity<PassengerDto> patchPassenger(Map<String, String> updates, Long id) {
 
     return repository.findById(id)
                      .map(passenger -> {
@@ -76,7 +79,7 @@ public class PassengerControllerImpl implements PassengerController {
 
                        return repository.save(passenger).toPassengerDto();
                      })
-                     .orElseThrow(() -> new PassengerNotFoundException(id));
-
+                     .map(ResponseEntity::ok)
+                     .orElseGet(() -> ResponseEntity.notFound().build());
   }
 }

@@ -8,8 +8,8 @@ public class PersonRegistrationListener {
 
     @EventListener
     public void confirmRegistration(PersonRegistrationEvent personRegistrationEvent) {
-        personRegistrationEvent.getPerson().setIsRegistered(true);
+        personRegistrationEvent.person().setIsRegistered(true);
         System.out.println("Confirming the registration for the person: "
-                + personRegistrationEvent.getPerson());
+                + personRegistrationEvent.person());
     }
 }

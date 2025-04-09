@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
@@ -18,6 +19,7 @@ import static ru.ibs.training.java.spring.core.HibernateUtils.*;
 @Data
 @Entity
 @FieldDefaults(makeFinal = false)
+@Accessors(chain = true, fluent = false)
 @SuppressWarnings({"com.intellij.jpb.LombokDataInspection",
                    "com.haulmont.ampjpb.LombokDataInspection",
                    "DefaultAnnotationParam"})

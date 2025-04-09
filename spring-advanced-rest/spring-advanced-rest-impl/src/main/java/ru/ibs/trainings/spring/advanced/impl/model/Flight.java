@@ -1,5 +1,6 @@
 package ru.ibs.trainings.spring.advanced.impl.model;
 
+import jakarta.validation.constraints.Positive;
 import lombok.ToString;
 import lombok.Value;
 import ru.ibs.trainings.spring.advanced.impl.exceptions.AllSeatsAreTakenException;
@@ -13,19 +14,22 @@ import java.util.Set;
 public class Flight {
 
   String flightNumber;
-  @ToString.Exclude int seats;
+  @ToString.Exclude @Positive int seats;
   @ToString.Exclude Set<Passenger> passengers = new HashSet<>();
 
   public Set<Passenger> getPassengers() {
     return Collections.unmodifiableSet(passengers);
   }
 
-  public void addPassenger(Passenger passenger) {
+  @SuppressWarnings("unused")
+  public Flight addPassenger(Passenger passenger) {
     if (passengers.size() >= seats)
       throw new AllSeatsAreTakenException("Cannot add more passengers than the capacity of the flight!");
     passengers.add(passenger);
+    return this;
   }
 
+  @SuppressWarnings("unused")
   public boolean removePassenger(Passenger passenger) {
     return passengers.remove(passenger);
   }

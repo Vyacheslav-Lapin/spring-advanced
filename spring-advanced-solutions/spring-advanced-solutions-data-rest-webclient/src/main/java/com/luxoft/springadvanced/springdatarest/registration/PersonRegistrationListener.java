@@ -11,7 +11,7 @@ public class PersonRegistrationListener {
 
   @EventListener
   public void confirmRegistration(PersonRegistrationEvent personRegistrationEvent) {
-    val person = personRegistrationEvent.getPerson()
+    val person = personRegistrationEvent.person()
                                         .setRegistered(true);
 
     log.info("Confirming the registration for the person: {}", person);

@@ -10,13 +10,13 @@ public class PersonRegistrationListener {
 
   @EventListener
   public void confirmRegistration(PersonRegistrationEvent personRegistrationEvent) {
-    personRegistrationEvent.getPerson().setRegistered(true);
-    log.info("Confirming the registration for the person: {}", personRegistrationEvent.getPerson());
+    personRegistrationEvent.person().setRegistered(true);
+    log.info("Confirming the registration for the person: {}", personRegistrationEvent.person());
   }
 
   @EventListener(condition = "#personRegistrationEvent.person.country.name=='USA'")
   public void confirmRegistrationUSA(PersonRegistrationEvent personRegistrationEvent) {
-    personRegistrationEvent.getPerson().setUSACitizen(true);
-    log.info("Confirming the registration for the USA person: {}", personRegistrationEvent.getPerson());
+    personRegistrationEvent.person().setUSACitizen(true);
+    log.info("Confirming the registration for the USA person: {}", personRegistrationEvent.person());
   }
 }

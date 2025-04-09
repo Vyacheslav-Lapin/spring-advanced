@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Getter
 @Setter
 @Service
-@Accessors(chain = false)
+@Accessors(chain = false, fluent = false)
 public class RegistrationManager implements ApplicationContextAware {
   @NonFinal ApplicationContext applicationContext;
 }

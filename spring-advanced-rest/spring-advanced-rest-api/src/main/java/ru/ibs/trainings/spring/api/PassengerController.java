@@ -24,8 +24,8 @@ public interface PassengerController {
   ResponseEntity<PassengerDto> createPassenger(@RequestBody PassengerDto passenger, Errors errors);
 
   @GetMapping("/passengers/{id}")
-  PassengerDto findPassenger(@PathVariable Long id);
+  ResponseEntity<PassengerDto> findPassenger(@PathVariable Long id);
 
   @PatchMapping("/passengers/{id}")
-  PassengerDto patchPassenger(@RequestBody Map<String, String> updates, @PathVariable Long id);
+  ResponseEntity<PassengerDto> patchPassenger(@RequestBody Map<String, String> updates, @PathVariable Long id);
 }
