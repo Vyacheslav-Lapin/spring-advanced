@@ -7,7 +7,7 @@ import lombok.experimental.ExtensionMethod;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.ibs.trainings.spring.advanced.impl.common.TestUtils;
+import ru.ibs.trainings.spring.advanced.impl.common.TestUtils.ReplaceCamelCase;
 import ru.ibs.trainings.spring.advanced.impl.dao.CountryRepository;
 import ru.ibs.trainings.spring.advanced.impl.dao.PassengerRepository;
 import ru.ibs.trainings.spring.advanced.impl.mappers.CollectionMapper;
@@ -31,6 +32,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
+import static org.hamcrest.collection.IsCollectionWithSize.*;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.Mockito.*;
 import static org.springframework.http.HttpHeaders.*;
@@ -50,6 +52,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                      TestUtils.class,
                  })
 @SuppressWarnings("java:S125")
+@DisplayNameGeneration(ReplaceCamelCase.class)
 class RestApplicationTest {
 
   MockMvc mvc;
@@ -123,9 +126,9 @@ class RestApplicationTest {
                                         .header(CONTENT_TYPE, APPLICATION_JSON))
                            .andExpect(status().isCreated());
 
-//    val response = resultActions.andReturn()
-//                                .getResponse()
-//                                .getContentAsString();
+    val response = resultActions.andReturn()
+                                .getResponse()
+                                .getContentAsString();
 
     resultActions
 //        .andExpect(jsonPath("$.name", is("Peter Michelsen")))
@@ -162,8 +165,7 @@ class RestApplicationTest {
 
   @Test
   @SneakyThrows
-  @DisplayName("Openapi documentation generated correctly")
-  void openapiDocumentationGeneratedCorrectlyTest() {
+  void openapiDocumentationGeneratedCorrectly() {
     val contentAsString = mvc.perform(MockMvcRequestBuilders.get(apiDocsPath + ".yaml"))
                              .andExpect(MockMvcResultMatchers.status().isOk())
                              .andExpect(MockMvcResultMatchers.content().contentType("application/vnd.oai.openapi"))

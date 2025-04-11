@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static ru.ibs.trainings.spring.dto.PassengerDto.Fields.*;
+
 @RestController
 @RequiredArgsConstructor
 @ExtensionMethod(value = PassengerMapper.class, suppressBaseMethods = false)
@@ -66,14 +68,14 @@ public class PassengerControllerImpl implements PassengerController {
     return repository.findById(id)
                      .map(passenger -> {
 
-                       Optional.ofNullable(updates.get("name")).ifPresent(passenger::setName);
+                       Optional.ofNullable(updates.get(NAME)).ifPresent(passenger::setName);
 
-                       Optional.ofNullable(updates.get("country"))
+                       Optional.ofNullable(updates.get(COUNTRY))
                                .map(countriesMap::get)
                                .map(CountryMapper::toCountryEntity)
                                .ifPresent(passenger::setCountry);
 
-                       Optional.ofNullable(updates.get("isRegistered"))
+                       Optional.ofNullable(updates.get(IS_REGISTERED))
                                .filter("true"::equalsIgnoreCase)
                                .ifPresent(__ -> passenger.setRegistered(true));
 

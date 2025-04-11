@@ -1,7 +1,9 @@
 package ru.ibs.trainings.spring.advanced.impl.beans;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.MappingIterator;
 import io.vavr.control.Try;
+import lombok.SneakyThrows;
 import lombok.val;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +11,8 @@ import ru.ibs.trainings.spring.dto.CountryDto;
 import ru.ibs.trainings.spring.dto.FlightDto;
 import ru.ibs.trainings.spring.dto.PassengerDto;
 
-import java.util.Collection;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.util.function.Function.*;
 import static java.util.stream.Collectors.*;
@@ -19,13 +21,15 @@ import static ru.ibs.training.java.spring.core.CsvUtils.*;
 @Configuration
 public class FlightConfig {
 
+  @SneakyThrows
   @Bean
   Map<String, CountryDto> countriesMap() {
-    return Try.withResources(() -> readFile("/countries_information.csv", CountryDto.class))
+    return Try.withResources(() -> readFile("/countries_information.csv", new TypeReference<CountryDto>() {}))
+//    return Try.withResources(() -> readFile("/countries_information.csv", CountryDto.class))
        .of(MappingIterator::readAll)
-       .map(Collection::stream)
-       .map(countryDtos -> countryDtos.collect(toMap(CountryDto::codeName, identity())))
-       .getOrElseThrow(ex -> new RuntimeException("Cannot read countries from csv", ex));
+       .getOrElseThrow(ex -> new RuntimeException("Cannot read countries from csv", ex))
+       .stream()
+       .collect(toMap(CountryDto::codeName, identity()));
   }
 
   @Bean
@@ -38,7 +42,7 @@ public class FlightConfig {
            .map(strings -> PassengerDto.builder()
                                        .name(strings.getFirst())
                                        .country(countriesMap().get(strings.get(1).trim())).build())
-           .collect(toUnmodifiableSet());
+           .collect(Collectors.toUnmodifiableSet());
 
     return FlightDto.builder()
                     .flightNumber("AA1234")

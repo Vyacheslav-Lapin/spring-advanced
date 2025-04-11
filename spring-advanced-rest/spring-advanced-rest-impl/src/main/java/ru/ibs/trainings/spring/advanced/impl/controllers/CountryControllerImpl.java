@@ -6,8 +6,8 @@ import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import ru.ibs.trainings.spring.advanced.impl.dao.CountryRepository;
 import ru.ibs.trainings.spring.advanced.impl.mappers.CountryMapper;
+import ru.ibs.trainings.spring.advanced.impl.services.CountryService;
 import ru.ibs.trainings.spring.api.CountryController;
 import ru.ibs.trainings.spring.dto.CountryDto;
 
@@ -18,21 +18,17 @@ import java.util.List;
 @ExtensionMethod(value = CountryMapper.class, suppressBaseMethods = false)
 public class CountryControllerImpl implements CountryController {
 
-  CountryRepository repository;
+  CountryService service;
 
   @Override
   public ResponseEntity<List<CountryDto>> findAll() {
-    val countryDtos = repository.findAll().stream()
-                         .map(country -> CountryDto.builder()
-                                                   .codeName(country.getCodeName())
-                                                   .name(country.getName()).build())
-                         .toList();
+    val countryDtos = service.findAll();
     return countryDtos.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(countryDtos);
   }
 
   @Override
   public ResponseEntity<CountryDto> save(CountryDto countryDto) {
-    val saved = repository.save(countryDto.toCountryEntity());
+    val saved = service.save(countryDto.toCountryEntity());
     return ResponseEntity.status(HttpStatus.CREATED)
                          .body(saved.toCountryDto());
   }
