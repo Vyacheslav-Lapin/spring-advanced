@@ -2,60 +2,42 @@ package com.luxoft.springadvanced.springdatarest.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.proxy.HibernateProxy;
+import org.jetbrains.annotations.Contract;
+import org.springframework.validation.annotation.Validated;
+
 import java.util.Objects;
 
+@SuppressWarnings({"ALL", "java:S2097"})
+
+@Data
 @Entity
+@Validated
+@NoArgsConstructor // avoid "No default constructor for entity"
+@AllArgsConstructor
 public class Country {
 
-    @Id
-    private String codeName;
-    private String name;
+  @Id @NotNull String codeName;
+  @NotNull String name;
 
-    // avoid "No default constructor for entity"
-    public Country() {
+  @Override
+  @Contract(value = "null -> false", pure = true)
+  public final boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null) return false;
+    Class<?> oEffectiveClass = o instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+    Class<?> thisEffectiveClass = this instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+    if (thisEffectiveClass != oEffectiveClass) return false;
+    Country country = (Country) o;
+    return getCodeName() != null && Objects.equals(getCodeName(), country.getCodeName());
+  }
 
-    }
-
-    public Country(String name, String codeName) {
-        this.name = name;
-        this.codeName = codeName;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCodeName() {
-        return codeName;
-    }
-
-    public void setCodeName(String codeName) {
-        this.codeName = codeName;
-    }
-
-    @Override
-    public String toString() {
-        return "Country{" +
-                "name='" + name + '\'' +
-                ", codeName='" + codeName + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Country country = (Country) o;
-        return Objects.equals(name, country.name) &&
-                Objects.equals(codeName, country.codeName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, codeName);
-    }
+  @Override
+  public final int hashCode() {
+    return this instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+  }
 }

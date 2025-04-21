@@ -36,7 +36,7 @@
     <annotations.version>26.0.2</annotations.version>
     <jcip-annotations.version>1.0</jcip-annotations.version>
     <spotbugs.version>4.9.3</spotbugs.version>
-    <error_prone_annotations.version>2.37.0</error_prone_annotations.version>
+    <error_prone_annotations.version>2.38.0</error_prone_annotations.version>
     <vavr.version>0.10.6</vavr.version>
     <assertj-vavr.version>0.4.3</assertj-vavr.version>
     <mapstruct.version>1.6.3</mapstruct.version>
@@ -48,9 +48,12 @@
     <maven.sourceDirectory>${project.basedir}/src/main/java</maven.sourceDirectory>
 
     <flatten-maven-plugin.version>1.7.0</flatten-maven-plugin.version>
+    <flatten.mode>resolveCiFriendliesOnly</flatten.mode>
+    <updatePomFile>true</updatePomFile>
+
     <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
     <yaml-properties-maven-plugin.version>1.1.3</yaml-properties-maven-plugin.version>
-    <commons-io.version>2.18.0</commons-io.version>
+    <commons-io.version>2.19.0</commons-io.version>
     <proguard-maven-plugin.version>2.6.1</proguard-maven-plugin.version>
     <proguard-core.version>9.1.7</proguard-core.version>
 
@@ -430,6 +433,10 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>flatten-maven-plugin</artifactId>
           <version>${flatten-maven-plugin.version}</version>
+<!--          <configuration>-->
+<!--            <updatePomFile>true</updatePomFile>-->
+<!--            <flattenMode>resolveCiFriendliesOnly</flattenMode>-->
+<!--          </configuration>-->
           <executions>
             <execution>
               <id>flatten:process-resources:flatten</id>
@@ -461,6 +468,7 @@
               <configuration>
                 <files>
                   <file>${maven.multiModuleProjectDirectory}/maven.yml</file>
+<!--                  <file>${project.basedir}/maven.yml</file>-->
                 </files>
               </configuration>
             </execution>
@@ -541,11 +549,11 @@
                         <arg value="delombok"/>
                         <arg value="${lombok.sourceDirectory}"/>
                         <!-- @formatter:off -->
-                      <arg value="-f"/><arg value="indent:2"/>
-                      <arg value="-f"/><arg value="finalParams:skip"/>
-                      <arg value="-f"/><arg value="pretty"/>
-                      <arg value="-d"/><arg value="${lombok.outputDirectory}"/>
-                      <!-- @formatter:on -->
+                        <arg value="-f"/><arg value="indent:2"/>
+                        <arg value="-f"/><arg value="finalParams:skip"/>
+                        <arg value="-f"/><arg value="pretty"/>
+                        <arg value="-d"/><arg value="${lombok.outputDirectory}"/>
+                        <!-- @formatter:on -->
                       </java>
                       <touch file="${lombok.outputDirectory}/lombok.config"/>
                       <echo file="${lombok.outputDirectory}/lombok.config" append="true">

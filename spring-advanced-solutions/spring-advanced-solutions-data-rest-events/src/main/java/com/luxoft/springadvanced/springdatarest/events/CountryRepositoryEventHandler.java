@@ -1,6 +1,7 @@
 package com.luxoft.springadvanced.springdatarest.events;
 
 import com.luxoft.springadvanced.springdatarest.model.Country;
+import lombok.experimental.StandardException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
@@ -12,7 +13,11 @@ public class CountryRepositoryEventHandler {
 
     @HandleBeforeCreate
     public void handleCountryBeforeCreate(Country country){
-        log.info("Country {} is to be created", country);
+
+      if (country.getCodeName().equals("NK"))
+        throw new CountryCodeNameIsUnsupportedException("Country code name is NK!");
+
+      log.info("Country {} is to be created", country);
     }
 
     @HandleAfterCreate
@@ -21,3 +26,6 @@ public class CountryRepositoryEventHandler {
     }
 
 }
+
+@StandardException
+class CountryCodeNameIsUnsupportedException extends RuntimeException {}

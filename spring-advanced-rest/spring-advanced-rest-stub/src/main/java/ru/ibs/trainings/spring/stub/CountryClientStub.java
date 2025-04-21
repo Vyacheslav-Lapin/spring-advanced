@@ -5,7 +5,6 @@ import io.vavr.control.Try;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
 import lombok.val;
 import org.springframework.context.annotation.Primary;
@@ -26,19 +25,23 @@ import static ru.ibs.training.java.spring.core.CsvUtils.*;
 public class CountryClientStub implements CountryController {
 
   @Getter(lazy = true, value = AccessLevel.PRIVATE)
-  List<CountryDto> countries = readCountries();
+  List<CountryDto> countries = Try.withResources(() -> readFile("/countries_information.csv", CountryDto.class))
+                                  .of(MappingIterator::readAll)
+                                  .getOrElseGet(__ -> List.of());
 
-  @SneakyThrows
-  @SuppressWarnings("java:S125")
-  private static List<CountryDto> readCountries() {
+//  List<CountryDto> countries = readCountries();
 
-//    @Cleanup val readCountries = CsvUtils.readFile("/countries_information.csv", CountryDto.class);
-//    return readCountries.readAll();
-
-    return Try.withResources(() -> readFile("/countries_information.csv", CountryDto.class))
-              .of(MappingIterator::readAll)
-              .getOrElseGet(__ -> List.of());
-  }
+//  @SneakyThrows
+//  @SuppressWarnings("java:S125")
+//  private static List<CountryDto> readCountries() {
+//
+// //    @Cleanup val readCountries = CsvUtils.readFile("/countries_information.csv", CountryDto.class);
+// //    return readCountries.readAll();
+//
+//    return Try.withResources(() -> readFile("/countries_information.csv", CountryDto.class))
+//              .of(MappingIterator::readAll)
+//              .getOrElseGet(__ -> List.of());
+//  }
 
   @Override
   public ResponseEntity<List<CountryDto>> findAll() {

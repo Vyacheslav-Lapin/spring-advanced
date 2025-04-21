@@ -14,5 +14,5 @@ public interface CountryController {
   ResponseEntity<List<CountryDto>> findAll();
 
   @PostMapping("/custom-countries")
-  ResponseEntity<CountryDto> save(@RequestBody CountryDto countryDto);
+  ResponseEntity<CountryDto> save(@RequestBody CountryDto countryDto/*, Errors errors*/);
 }

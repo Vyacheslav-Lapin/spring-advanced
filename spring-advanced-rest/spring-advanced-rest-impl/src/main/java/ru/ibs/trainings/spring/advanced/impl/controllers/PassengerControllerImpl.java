@@ -45,7 +45,12 @@ public class PassengerControllerImpl implements PassengerController {
 
   @Override
   public ResponseEntity<PassengerDto> createPassenger(PassengerDto passenger, @NotNull Errors errors) {
+  //  public ResponseEntity<Either<RFC9457ErrorDto, PassengerDto>> createPassenger(PassengerDto passenger, @NotNull Errors errors) {
     if (errors.hasErrors()) {
+  //      val messages = errors.getAllErrors().stream()
+  //                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+  //                    .reduce((s1, s2) -> s1 + s2).get();
+  //      return ResponseEntity.badRequest().body(messages);
       return ResponseEntity.badRequest().build();
     }
     val passengerDto = repository.save(passenger.toPassengerEntity())

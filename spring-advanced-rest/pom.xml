@@ -54,12 +54,6 @@
         <version>${ehcache.version}</version>
       </dependency>
 
-      <dependency>
-        <groupId>org.mapstruct</groupId>
-        <artifactId>mapstruct</artifactId>
-        <version>${mapstruct.version}</version>
-      </dependency>
-
       <!--region SpringDoc OpenAPI-->
       <dependency>
         <groupId>org.springdoc</groupId>

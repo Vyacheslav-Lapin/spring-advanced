@@ -1,9 +1,7 @@
 package ru.ibs.trainings.spring.advanced.impl.beans;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.MappingIterator;
 import io.vavr.control.Try;
-import lombok.SneakyThrows;
 import lombok.val;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,11 +19,10 @@ import static ru.ibs.training.java.spring.core.CsvUtils.*;
 @Configuration
 public class FlightConfig {
 
-  @SneakyThrows
   @Bean
   Map<String, CountryDto> countriesMap() {
-    return Try.withResources(() -> readFile("/countries_information.csv", new TypeReference<CountryDto>() {}))
-//    return Try.withResources(() -> readFile("/countries_information.csv", CountryDto.class))
+//    return Try.withResources(() -> readFile("/countries_information.csv", new TypeReference<CountryDto>() {}))
+    return Try.withResources(() -> readFile("/countries_information.csv", CountryDto.class))
        .of(MappingIterator::readAll)
        .getOrElseThrow(ex -> new RuntimeException("Cannot read countries from csv", ex))
        .stream()
@@ -33,7 +30,7 @@ public class FlightConfig {
   }
 
   @Bean
-  FlightDto buildFlightFromCsv() {
+  FlightDto buildFlightFromCsv(Map<String, CountryDto> countriesMap) {
     val flightPassengers =
         Try.withResources(() -> readFile("/flights_information.csv"))
            .of(MappingIterator::readAll)
@@ -41,7 +38,7 @@ public class FlightConfig {
            .stream()
            .map(strings -> PassengerDto.builder()
                                        .name(strings.getFirst())
-                                       .country(countriesMap().get(strings.get(1).trim())).build())
+                                       .country(countriesMap.get(strings.get(1).trim())).build())
            .collect(Collectors.toUnmodifiableSet());
 
     return FlightDto.builder()

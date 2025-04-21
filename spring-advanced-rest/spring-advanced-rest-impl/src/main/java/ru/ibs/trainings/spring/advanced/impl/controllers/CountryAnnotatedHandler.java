@@ -2,6 +2,7 @@ package ru.ibs.trainings.spring.advanced.impl.controllers;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.rest.core.annotation.HandleAfterCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
@@ -14,7 +15,7 @@ import ru.ibs.trainings.spring.dto.CountryDto;
 public class CountryAnnotatedHandler {
 
   @HandleBeforeCreate
-  public void handleBeforeSave(CountryDto country) {
+  public void handleBeforeSave(@NotNull CountryDto country) {
     if (country.codeName().equalsIgnoreCase("NK")) {
       log.info("Country {} is not to be created!", country.name());
       throw new CountryCreationException("NK - нет такой страны!");
@@ -23,7 +24,7 @@ public class CountryAnnotatedHandler {
   }
 
   @HandleAfterCreate
-  public void handleAfterSave(CountryDto country) {
+  public void handleAfterSave(@NotNull CountryDto country) {
     log.info("Country saved: {}", country.name());
   }
 }
