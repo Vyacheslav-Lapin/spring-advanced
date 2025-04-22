@@ -1,5 +1,7 @@
 package ru.ibs.training.java.spring.data.rest;
 
+import lombok.experimental.ExtensionMethod;
+import lombok.val;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
@@ -9,6 +11,7 @@ import org.springframework.web.reactive.function.BodyExtractors;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 import ru.ibs.training.java.spring.data.rest.model.Country;
 import ru.ibs.training.java.spring.data.rest.model.Person;
 
@@ -17,6 +20,8 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtensionMethod(suppressBaseMethods = false,
+                 value = BodyExtractors.class)
 public class WebClientPersonsBuilderTest {
 
   @Test
@@ -29,13 +34,14 @@ public class WebClientPersonsBuilderTest {
                                    .defaultUriVariables(Collections.singletonMap("url", "http://localhost:8081"))
                                    .build();
 
-    ClientResponse clientResponse = webClient.get()
-                                             .uri("/persons/1")
-                                             .exchange()
-                                             .block();
-    ClientResponse.Headers headers = clientResponse.headers();
+    val clientResponse = webClient.get()
+                                  .uri("/persons/1")
+                                  .exchangeToMono(Mono::just)
+                                  .block();
 
-    Map<String, Object> responseMap = clientResponse.body(BodyExtractors.toMono(Map.class)).block();
+    val headers = clientResponse.headers();
+
+    Map<String, Object> responseMap = clientResponse.body(Map.class.toMono()).block();
     System.out.println(responseMap);
 
     assertAll(
@@ -46,7 +52,6 @@ public class WebClientPersonsBuilderTest {
         () -> assertEquals(82, headers.contentLength().getAsLong()),
         () -> assertEquals(MediaType.APPLICATION_JSON, headers.contentType().get()),
         () -> assertEquals(HttpStatus.OK, clientResponse.statusCode()));
-
   }
 
   @Test
