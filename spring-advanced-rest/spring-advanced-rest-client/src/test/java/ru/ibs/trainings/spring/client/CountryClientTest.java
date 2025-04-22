@@ -25,6 +25,8 @@ class CountryClientTest {
     // given
     val countryDtos = countryClient.findAll();
 
+    System.out.println("countryDtos = " + countryDtos);
+
     // when
     assertThat(countryDtos).isNotNull()
         // then

@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.collection.IsCollectionWithSize.*;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -85,7 +84,7 @@ public class RestApplicationTest {
 
         Person person = new Person("Peter Michelsen");
         person.setCountry(countriesMap.get("US"));
-        person.setIsRegistered(false);
+        person.setRegistered(false);
         when(personRepository.save(person)).thenReturn(person);
 
         mvc.perform(post("/persons")
@@ -105,7 +104,7 @@ public class RestApplicationTest {
     void testPatchPerson() throws Exception {
         Person person = new Person("Sophia Graham");
         person.setCountry(countriesMap.get("UK"));
-        person.setIsRegistered(false);
+        person.setRegistered(false);
         when(personRepository.findById(1L)).thenReturn(Optional.of(person));
         when(personRepository.save(person)).thenReturn(person);
         String updates =

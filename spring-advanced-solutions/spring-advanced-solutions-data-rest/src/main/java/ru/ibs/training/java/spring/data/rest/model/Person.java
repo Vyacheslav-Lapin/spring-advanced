@@ -1,74 +1,41 @@
 package ru.ibs.training.java.spring.data.rest.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import java.util.Objects;
 
+@SuppressWarnings({"com.haulmont.ampjpb.LombokDataInspection", "com.intellij.jpb.LombokDataInspection"})
+
+@Data
 @Entity
+@NoArgsConstructor // avoid "No default constructor for entity"
+@RequiredArgsConstructor
 public class Person {
 
-    @Id
-    @GeneratedValue
-    private Long id;
-    private String name;
-    @ManyToOne
-    private Country country;
-    private boolean isRegistered;
+  @Id @GeneratedValue Long id;
+  @NonNull String name;
+  @ManyToOne Country country;
+  boolean isRegistered;
 
-    // avoid "No default constructor for entity"
-    public Person() {
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Person person = (Person) o;
+    return isRegistered == person.isRegistered &&
+           Objects.equals(name, person.name) &&
+           Objects.equals(country, person.country);
+  }
 
-    }
-
-    public Person(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public boolean isRegistered() {
-        return isRegistered;
-    }
-
-    public void setIsRegistered(boolean isRegistered) {
-        this.isRegistered = isRegistered;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", country=" + country +
-                ", registered=" + isRegistered +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return isRegistered == person.isRegistered &&
-                Objects.equals(name, person.name) &&
-                Objects.equals(country, person.country);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, country, isRegistered);
-    }
-
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, country, isRegistered);
+  }
 }
