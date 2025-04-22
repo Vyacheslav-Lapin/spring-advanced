@@ -11,7 +11,7 @@ public class IllegalArgumentAdvice {
 
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler//(IllegalArgumentException.class)
     String illegalArgumentHandler(IllegalArgumentException ex) {
         return ex.getMessage();
     }

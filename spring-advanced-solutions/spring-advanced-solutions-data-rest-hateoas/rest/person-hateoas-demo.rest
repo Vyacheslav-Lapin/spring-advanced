@@ -7,3 +7,9 @@ GET http://localhost:8081/api/persons
 ###
 GET http://localhost:8081/api/persons/7
 
+###
+GET http://localhost:8081/addresses/1
+
+###
+GET http://localhost:8081/addresses
+

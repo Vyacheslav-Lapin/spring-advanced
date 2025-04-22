@@ -2,9 +2,7 @@ package com.luxoft.data.examples.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -28,9 +26,7 @@ import java.util.Objects;
                    "com.haulmont.ampjpb.LombokDataInspection"})
 public class Person {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Id @GeneratedValue Long id;
 
     @Column(name = "NAME", nullable = false)
     @NonNull String name;
@@ -40,7 +36,7 @@ public class Person {
     @Column(name = "AGE")
     @NonNull Integer age;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne//(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     @NonNull Address address;
 

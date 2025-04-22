@@ -41,7 +41,7 @@ public class PersonController {
     return personRepository.findAll();
   }
 
-  @GetMapping("/{id:[0-9]+}")
+  @GetMapping("/{id:\\d+}")
   public Person findById(@PathVariable Long id) {
     return personRepository
         .findById(id)

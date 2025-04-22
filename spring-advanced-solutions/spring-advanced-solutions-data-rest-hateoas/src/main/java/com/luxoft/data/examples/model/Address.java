@@ -15,25 +15,25 @@ import java.util.Objects;
 
 import static lombok.AccessLevel.*;
 
+@SuppressWarnings({"com.haulmont.ampjpb.LombokDataInspection", "com.intellij.jpb.LombokDataInspection"})
+
 @Data
 @Entity
 @RequiredArgsConstructor
 @Table(name = "ADDRESS")
 @NoArgsConstructor(access = PROTECTED)
-@SuppressWarnings({"com.haulmont.ampjpb.LombokDataInspection",
-                   "com.intellij.jpb.LombokDataInspection"})
 public class Address {
 
     @Id
     @GeneratedValue
     @Column(updatable = false, nullable = false)
-    private Long id;
+    Long id;
 
     @Column(name = "STREET", nullable = false)
     @NonNull String street;
 
     @Column(name = "CITY", nullable = false)
-    @NonNull private String city;
+    @NonNull String city;
 
   @Override
   public final boolean equals(Object o) {
